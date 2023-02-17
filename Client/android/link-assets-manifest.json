@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/Assets/notes.json",
+      "sha1": "998e25d4f8526d0eec335540198fa314e0255972"
+    },
+    {
+      "path": "src/Assets/Roboto-Light.ttf",
+      "sha1": "18788c5d630fa695f9283f6393bfa541b2031508"
+    }
+  ]
+}
