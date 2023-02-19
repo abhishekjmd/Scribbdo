@@ -5,8 +5,8 @@ const MiddleCreateNotesComp = () => {
   return (
     <View style={styles.root}>
       <View style={styles.mainContainer}>
-        <TextInput placeholder='Title' placeholderTextColor='black' style={styles.textinputStyle} />
-        <TextInput placeholder='Note' placeholderTextColor='black' style={styles.textinputStyle} />
+        <TextInput placeholder='Title' placeholderTextColor='#8A8A8A' style={styles.textinputStyle} />
+        <TextInput placeholder='Note' placeholderTextColor='#8A8A8A' style={styles.textinputStyle} />
       </View>
     </View>
   )
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   },
   mainContainer:{
     width: '98%',
-    alignItems: 'flex-start',
-    marginLeft:'6%'
+    marginLeft:'6%',
+    marginTop: '10%',
   },
   textinputStyle:{
     fontSize:18,
-    width:'100%'
+    width:'100%',
   },
 })

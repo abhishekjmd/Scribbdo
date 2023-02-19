@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 const RemindersScreen = () => {
   const navigation = useNavigation()
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.root}>
       <ReminderTopComp onMenuPress={() => { navigation.openDrawer() }} />
       <ReminderMainComp />
       <FloatingAddComp />
@@ -20,4 +20,9 @@ const RemindersScreen = () => {
 
 export default RemindersScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  root:{
+    flex:1,
+    backgroundColor:'#171717'
+  },
+})

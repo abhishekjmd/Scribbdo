@@ -32,10 +32,21 @@ exports.addToPin = async (req, res) => {
 }
 
 
+exports.removeFromPin = async (req, res) => {
+    try {
+        const removeFromPin = await Pin.findOneAndUpdate({ _id: req.params.id }, { $pull: { Pin: { _id: req.params.id} } }, { new: true })
+        console.log(removeFromPin)
+        res.send(removeFromPin);
+        return;
+    } catch (error) {
+        res.send(error);
+        console.log(error);
+    }
+}
 
 exports.getPin = async (req, res) => {
     try {
-        const getPin = await Pin.find();
+        const getPin = await Pin.find().populate('Pin');
         res.send(getPin);
         console.log(error);
         return;

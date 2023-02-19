@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 const CreateNotesScreen = () => {
     const navigation = useNavigation();
     return (
-        <View style={{ flex: 1, backgroundColor: '#EDEADE', }}>
+        <View style={{ flex: 1, backgroundColor: '#171717', }}>
             <TopCreateNoteComp onMenuPress={() => { navigation.navigate('Home') }} />
             <MiddleCreateNotesComp />
             <BottomCreateComp />

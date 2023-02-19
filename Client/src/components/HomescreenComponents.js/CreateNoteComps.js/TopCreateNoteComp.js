@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         justifyContent: 'space-evenly',
-        backgroundColor: '#EDEADE',
+        backgroundColor: '#2E2E2E',
         flexDirection: 'row',
         alignItems: 'center',
         height: '100%',
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: '500',
-        color: '#191919',
+        color: 'white',
         fontSize: 16,
     },
     Icon: {
-        color: '#191919'
+        color: 'white'
     },
 })

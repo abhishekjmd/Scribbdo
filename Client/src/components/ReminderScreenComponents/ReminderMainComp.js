@@ -7,10 +7,10 @@ const ReminderMainComp = () => {
         <View style={styles.root}>
             <View style={styles.mainContainer}>
                 <View>
-                    <MaterialIcons name='notifications-none' size={150} />
+                    <MaterialIcons name='notifications-none' size={150} color='white' />
                 </View>
                 <View>
-                    <Text style={{ fontSize:18 }}>Notes with upcoming reminders appear here</Text>
+                    <Text style={{ fontSize:18,color:'white' }}>Notes with upcoming reminders appear here</Text>
                 </View>
             </View>
         </View>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     root:{
         flex:1,
         width:'100%',
-        backgroundColor:'white'
+        backgroundColor:'#171717'
     },
     mainContainer:{
         width: '100%',

@@ -19,30 +19,28 @@ const App = () => {
         screenOptions={{
           headerShown: false,
           drawerLabelStyle: {
-            fontSize:16,
-            color:'#191919',
-            
+            fontSize: 16,
+            color: 'white',
           },
-          // drawerActiveBackgroundColor:'white',
-          // drawerActiveTintColor:'yellow',
-          drawerStyle:{
-            backgroundColor:'#EDEADE',
+          drawerActiveBackgroundColor: '#737373',
+          drawerStyle: {
+            backgroundColor: '#353935',
           },
         }}
 
       >
         <Drawer.Screen name='Notes' component={StackNavigation}
           options={{
-            
+
             drawerIcon: (() => (
-              <MaterialIcons name='lightbulb-outline' size={30} color='#191919' />
+              <MaterialIcons name='lightbulb-outline' size={30} color='white' />
             ))
           }}
         />
         <Drawer.Screen name='Reminder' component={RemindersScreen}
           options={{
             drawerIcon: (() => (
-              <MaterialIcons name='notifications-none' size={30} color='#191919' />
+              <MaterialIcons name='notifications-none' size={30} color='white' />
 
             ))
           }}
@@ -51,7 +49,7 @@ const App = () => {
         <Drawer.Screen name='Delete' component={DeletedScreen}
           options={{
             drawerIcon: (() => (
-              <AntDesign name='delete' size={30} color='#191919' />
+              <AntDesign name='delete' size={30} color='white' />
             ))
           }}
         />
@@ -59,7 +57,7 @@ const App = () => {
         <Drawer.Screen name='Setting' component={SettingScreen}
           options={{
             drawerIcon: (() => (
-              <Ionicons name='settings-sharp' size={30} color='#191919' />
+              <Ionicons name='settings-sharp' size={30} color='white' />
             ))
           }}
         />

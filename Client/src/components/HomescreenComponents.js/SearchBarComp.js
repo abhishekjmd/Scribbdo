@@ -10,7 +10,7 @@ const SearchBarComp = ({ value, onChangeText, placeholder, onMenuPress }) => {
         <TouchableOpacity onPress={onMenuPress}>
           <Ionicons name='ios-menu-sharp' size={25} style={styles.Icon} />
         </TouchableOpacity>
-        <TextInput placeholder={placeholder} style={styles.textInput} value={value} onChangeText={onChangeText} placeholderTextColor='#191919' />
+        <TextInput placeholder={placeholder} style={styles.textInput} value={value} onChangeText={onChangeText} placeholderTextColor='white' />
         <AntDesign name='appstore-o' size={25} style={styles.Icon} />
       </View>
     </View>
@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
     width: '98%',
     height: '100%',
     borderRadius: 10,
-    backgroundColor: '#EDEADE'
+    backgroundColor: '#2E2E2E'
   },
   textInput: {
     fontSize: 20,
-    color: '#191919'
+    color: 'white'
   },
   Icon: {
-    color: '#191919',
+    color: 'white',
   },
 })

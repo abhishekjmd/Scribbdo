@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-evenly',
-   
+    // backgroundColor:'#2E2E2E'
   },
   textContainer:{
     width:'75%',
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize:16,
-    color:'black'
+    color:'white'
   },
   Icon:{
-    color:'black'
+    color:'white'
   },
   
 })

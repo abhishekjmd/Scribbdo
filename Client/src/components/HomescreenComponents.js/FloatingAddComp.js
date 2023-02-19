@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity,View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity,View,Image } from 'react-native'
 import React from 'react'
 import LottieView from 'lottie-react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -11,7 +11,10 @@ const FloatingAddComp = () => {
     return (
         <View style={styles.root}>
             <TouchableOpacity style={styles.lottieContainer} onPress={createNoteHandle}>
-                <LottieView source={require('../../assets/notes.json')} loop autoPlay speed={0.5} />
+                <Image source={require('../../assets/add-file.png')} style={styles.image} resizeMode='center' />
+            {/* 
+            <LottieView source={require('../../assets/notes.json')} loop autoPlay speed={0.5} />
+         */}   
             </TouchableOpacity>
         </View>
     )
@@ -30,7 +33,15 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     lottieContainer: {
-        width: '90%',
-        height: '90%',
+        width: '60%',
+        height: '60%',
+        backgroundColor:'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius:10
+    },
+    image:{
+        height:'70%',
+        width:'70%',
     },
 })

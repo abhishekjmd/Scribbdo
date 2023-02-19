@@ -14,6 +14,7 @@ export default DeletedScreen
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    flex: 1,
+    backgroundColor:'#171717'
   },
 })
