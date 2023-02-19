@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet,  View, TextInput } from 'react-native'
 import React from 'react'
 
 const MiddleCreateNotesComp = () => {
@@ -17,7 +17,6 @@ export default MiddleCreateNotesComp
 const styles = StyleSheet.create({
   root:{
     width:'100%',
-    // backgroundColor:'yellow',
   },
   mainContainer:{
     width: '98%',
