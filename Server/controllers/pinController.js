@@ -48,7 +48,7 @@ exports.getPin = async (req, res) => {
     try {
         const getPin = await Pin.find().populate('Pin');
         res.send(getPin);
-        console.log(error);
+        console.log(getPin);
         return;
     } catch (error) {
         res.send(error);

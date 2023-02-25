@@ -44,3 +44,15 @@ exports.getNotes = async (req, res) => {
         console.log(error)
     }
 }
+
+exports.updateNotes = async (req, res) => {
+    try {
+        const updateNotes = await Notes.findByIdAndUpdate({ _id: req.params.id },
+             { Title: req.body.Title, Note: req.body.Note, Image: req.body.Image, Recording: req.body.Recording }, { new: true })
+
+        res.send(updateNotes);
+        console.log(updateNotes);
+    } catch (error) {
+        console.log(error)
+    }
+}
