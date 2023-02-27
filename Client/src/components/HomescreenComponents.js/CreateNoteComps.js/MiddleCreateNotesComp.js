@@ -1,17 +1,20 @@
-import { StyleSheet, View, TextInput, BackHandler, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, View, TextInput, BackHandler, TouchableOpacity, Text,Image } from 'react-native'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { NotesAyncThunk } from '../../../Redux/Reducers/NotesReducer'
-import { useNavigation } from '@react-navigation/native'
+import { GetNotesAsyncThunk, NotesAyncThunk } from '../../../Redux/Reducers/NotesReducer'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 const MiddleCreateNotesComp = () => {
   const [titleValue, setTitleValue] = useState('')
   const [notesValue, setNoteValue] = useState('')
   const dispatch = useDispatch()
   const navigation = useNavigation();
+  const route = useRoute()
+  const image = route.params?.Image
   const handleSubmit = async () => {
     try {
-      dispatch(NotesAyncThunk({ titleValue, notesValue }))
+      dispatch(NotesAyncThunk({ titleValue, notesValue,image }))
+      dispatch(GetNotesAsyncThunk())
       navigation.navigate('Home');
     } catch (error) {
       console.log(error)

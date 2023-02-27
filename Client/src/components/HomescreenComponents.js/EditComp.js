@@ -5,18 +5,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 
-const EditComp = ({ deleteHandle }) => {
-
+const EditComp = ({ deleteHandle, archiveHandle, oneText, twoText }) => {
     return (
         <View style={styles.root}>
             <View style={styles.mainContainer}>
-                <TouchableOpacity style={styles.archiveContainer}>
+                <TouchableOpacity style={styles.archiveContainer} onPress={archiveHandle}>
                     <Ionicons name='archive' size={30} color='white' />
-                    <Text style={styles.archiveText}>Archive</Text>
+                    <Text style={styles.archiveText}> {oneText} </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.DeleteContainer} onPress={deleteHandle}>
                     <MaterialCommunityIcons name='delete-circle' size={30} color='white' />
-                    <Text style={styles.deleteText}>Delete</Text>
+                    <Text style={styles.deleteText}> {twoText} </Text>
                 </TouchableOpacity>
             </View>
         </View>

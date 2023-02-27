@@ -30,13 +30,24 @@ exports.addToArchive = async (req, res) => {
     }
 }
 
-
+exports.removeToArchive = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const removeToArchive = await Archive.findOneAndUpdate({ id }, { $pull: { Archive: { _id: req.params.id } } }, { new: true }).populate('Archive')
+        res.send(removeToArchive);
+        console.log(removeToArchive)
+        return;
+    } catch (error) {
+        res.send(error);
+        console.log(error)
+    }
+}
 
 exports.getArchive = async (req, res) => {
     try {
-        const getArchive = await Archive.find();
+        const getArchive = await Archive.find().populate('Archive').exec();
         res.send(getArchive);
-        console.log(error);
+        console.log(getArchive);
         return;
     } catch (error) {
         res.send(error);

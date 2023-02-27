@@ -6,7 +6,7 @@ const initialState = {
     Notes: '',
     DeleteNotes: '',
     UpdateNotes: '',
-    
+
 }
 
 export const GetNotesAsyncThunk = createAsyncThunk(
@@ -26,7 +26,7 @@ export const GetNotesAsyncThunk = createAsyncThunk(
 
 export const NotesAyncThunk = createAsyncThunk(
     'Notes',
-    async ({ titleValue, notesValue }) => {
+    async ({ titleValue, notesValue, image }) => {
         try {
             const createNote = await fetch('http://192.168.0.105:4000/notes/addNotes', {
                 method: 'POST',
@@ -35,7 +35,8 @@ export const NotesAyncThunk = createAsyncThunk(
                 },
                 body: JSON.stringify({
                     Title: titleValue,
-                    Note: notesValue
+                    Note: notesValue,
+                    Image: image
                 })
             })
             const result = await createNote.json();

@@ -1,9 +1,13 @@
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const SearchBarComp = ({ value, onChangeText, placeholder, onMenuPress }) => {
+
+  const [listView,setListView] = useState(false)
+
+
   return (
     <View style={styles.MainContainer}>
       <View style={styles.SearchContainer}>

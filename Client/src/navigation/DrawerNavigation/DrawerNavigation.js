@@ -6,6 +6,8 @@ import DeletedScreen from '../../screens/DeletedScreen';
 import RemindersScreen from '../../screens/RemindersScreen';
 import SettingScreen from '../../screens/SettingScreen';
 import StackNavigation from '../StackNavigation/StackNavigation';
+import ArchiveNotesScreen from '../../screens/ArchiveNotesScreen';
+
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -46,6 +48,14 @@ const App = () => {
           }}
         />
 
+        <Drawer.Screen name='Archive' component={ArchiveNotesScreen}
+          options={{
+            drawerIcon: (() => (
+              <Ionicons name='ios-archive-outline' size={30} color='white' />
+            ))
+          }}
+        />
+
         <Drawer.Screen name='Delete' component={DeletedScreen}
           options={{
             drawerIcon: (() => (
@@ -61,6 +71,7 @@ const App = () => {
             ))
           }}
         />
+
       </Drawer.Navigator>
     </NavigationContainer>
   )
