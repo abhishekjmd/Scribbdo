@@ -1,6 +1,6 @@
 package com.devdrops_scribbdo;
-// import package com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage;
 import android.app.Application;
+import com.brentvatne.react.ReactVideoPackage;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -8,6 +8,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
+import com.reactnativecommunity.rctaudiotoolkit.AudioPackage;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -24,8 +25,9 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          // new RNAudioRecorderPlayerPackage()
           // packages.add(new MyReactNativePackage());
+          new AudioPackage();
+          new ReactVideoPackage();
           return packages;
         }
 

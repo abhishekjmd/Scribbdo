@@ -1,21 +1,19 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
-import React,{useState} from 'react'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-const SearchBarComp = ({ value, onChangeText, placeholder, onMenuPress }) => {
-
-  const [listView,setListView] = useState(false)
-
-
+const SearchBarComp = ({  onMenuPress, listhandler,iconName }) => {
   return (
     <View style={styles.MainContainer}>
       <View style={styles.SearchContainer}>
         <TouchableOpacity onPress={onMenuPress}>
           <Ionicons name='ios-menu-sharp' size={25} style={styles.Icon} />
         </TouchableOpacity>
-        <TextInput placeholder={placeholder} style={styles.textInput} value={value} onChangeText={onChangeText} placeholderTextColor='white' />
-        <AntDesign name='appstore-o' size={25} style={styles.Icon} />
+        <Text  style={styles.text}> Notes </Text> 
+        <TouchableOpacity onPress={listhandler}>
+          <AntDesign name={iconName} size={25} style={styles.Icon} />
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -28,7 +26,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 60,
-    // marginTop: 6,
   },
   SearchContainer: {
     justifyContent: 'space-around',
@@ -39,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#2E2E2E'
   },
-  textInput: {
+  text: {
     fontSize: 20,
     color: 'white'
   },

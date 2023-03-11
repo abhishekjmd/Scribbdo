@@ -4,28 +4,27 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import { androidCameraPermission } from './Permission'
 
-const FloatingPhotoComp = ({ onCamera, onGallery }) => {
-    
+const FloatingPhotoVideoComp = ({ onCamera, onGallery, heading, firstBtn, secondBtn }) => {
     return (
         <View style={styles.Root}>
             <View style={styles.MainContainer}>
                 <View style={styles.AddImageContainer}>
-                    <Text style={styles.AddImageText}>Add image</Text>
+                    <Text style={styles.AddImageText}>{heading}</Text>
                 </View>
                 <TouchableOpacity style={styles.TakePhotoContainer} onPress={onCamera}>
                     <FontAwesome name='camera' size={25} style={styles.Icon} />
-                    <Text style={styles.TakePhotoText}>Take photo</Text>
+                    <Text style={styles.TakePhotoText}>{firstBtn}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.ChooseImageContainer} onPress={onGallery}>
                     <FontAwesome name='photo' size={25} style={styles.Icon} />
-                    <Text style={styles.ChooseImageText}>Choose image</Text>
+                    <Text style={styles.ChooseImageText}>{secondBtn}</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
 
-export default FloatingPhotoComp
+export default FloatingPhotoVideoComp
 
 const styles = StyleSheet.create({
     Root: {

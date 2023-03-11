@@ -13,7 +13,7 @@ export const GetNotesAsyncThunk = createAsyncThunk(
     'GetNotes',
     async () => {
         try {
-            const res = await fetch('http://192.168.0.105:4000/notes/getNotes');
+            const res = await fetch('http://192.168.0.106:4000/notes/getNotes');
             const result = await res.json();
             console.log('GetNotes', result);
             return result;
@@ -26,9 +26,9 @@ export const GetNotesAsyncThunk = createAsyncThunk(
 
 export const NotesAyncThunk = createAsyncThunk(
     'Notes',
-    async ({ titleValue, notesValue, image }) => {
+    async ({ titleValue, notesValue, image, video }) => {
         try {
-            const createNote = await fetch('http://192.168.0.105:4000/notes/addNotes', {
+            const createNote = await fetch('http://192.168.0.106:4000/notes/addNotes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,8 @@ export const NotesAyncThunk = createAsyncThunk(
                 body: JSON.stringify({
                     Title: titleValue,
                     Note: notesValue,
-                    Image: image
+                    Image: image,
+                    Recording: video
                 })
             })
             const result = await createNote.json();
@@ -52,10 +53,10 @@ export const NotesAyncThunk = createAsyncThunk(
 
 export const UpdateNotesAsync = createAsyncThunk(
     'UpdateNotes',
-    async ({ titleValue, notesValue, Id }) => {
-        const id = mongoose.Types.ObjectId(Id);
+    async ({ notesID, titleValue, notesValue, image, video }) => {
+        const id = mongoose.Types.ObjectId(notesID);
         try {
-            const createNote = await fetch(`http://192.168.0.105:4000/notes/updateNotes/${id}`, {
+            const createNote = await fetch(`http://192.168.0.106:4000/notes/updateNotes/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +64,9 @@ export const UpdateNotesAsync = createAsyncThunk(
                 body: JSON.stringify(
                     {
                         Title: titleValue,
-                        Note: notesValue
+                        Note: notesValue,
+                        Image: image,
+                        Recording: video
                     }
                 ),
 
@@ -82,7 +85,7 @@ export const DeleteNotesAsync = createAsyncThunk(
     async (notesID) => {
         const id = mongoose.Types.ObjectId(notesID);
         try {
-            const deleteNote = await fetch(`http://192.168.0.105:4000/notes/deleteNotes/${id}`, {
+            const deleteNote = await fetch(`http://192.168.0.106:4000/notes/deleteNotes/${id}`, {
                 method: 'DELETE'
             })
             const result = await deleteNote.json();

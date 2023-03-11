@@ -4,17 +4,17 @@ import { StyleSheet, View, TouchableOpacity, Text, } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-
-const BottomTabsComp = ({ onchecksPress, photoHandle, microPhoneHandle }) => {
+const BottomTabsComp = ({ onchecksPress, photoHandle, videoHandle }) => {
     return (
         <View style={styles.root}>
             <View style={styles.mainContainer}>
                 <TouchableOpacity onPress={onchecksPress}>
                     <FontAwesome name='check-square-o' size={25} style={styles.Icon} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={microPhoneHandle}>
-                    <FontAwesome name='microphone' size={25} style={styles.Icon} />
+                <TouchableOpacity onPress={videoHandle}>
+                    <Ionicons name='md-videocam' size={25} style={styles.Icon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={photoHandle}>
                     <FontAwesome name='photo' size={25} style={styles.Icon} />

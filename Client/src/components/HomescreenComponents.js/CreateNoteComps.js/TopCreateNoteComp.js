@@ -4,8 +4,19 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
+export const UniversalModalComp = ({text}) => {
+    return (
 
-const TopCreateNoteComp = ({ onMenuPress }) => {
+        <View style={styles.ArchiveHanlerCompRoot}>
+            <View style={styles.ArchiveHanlerCompMainComponent}>
+                <Text style={styles.ArchiveHanlerCompText}> {text} </Text>
+            </View>
+        </View>
+    )
+
+}
+
+const TopCreateNoteComp = ({ onMenuPress, archiveHandler }) => {
 
     return (
         <View style={styles.root}>
@@ -15,10 +26,8 @@ const TopCreateNoteComp = ({ onMenuPress }) => {
                 </TouchableOpacity>
                 <View style={styles.textContainer}>
                 </View>
-                <TouchableOpacity style={styles.searchContainer}>
-                    <MaterialCommunityIcons name='pin' size={25} style={styles.Icon} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listContainer}>
+
+                <TouchableOpacity style={styles.listContainer} onPress={archiveHandler}>
                     <Ionicons name='ios-archive' size={25} style={styles.Icon} />
                 </TouchableOpacity>
             </View>
@@ -57,5 +66,26 @@ const styles = StyleSheet.create({
     },
     Icon: {
         color: 'white'
+    },
+    ArchiveHanlerCompRoot: {
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position:'absolute',
+        top:'60%'
+    },
+    ArchiveHanlerCompMainComponent: {
+        width: '95%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        backgroundColor: 'white',
+        borderWidth:1,
+        borderRadius:10
+    },
+    ArchiveHanlerCompText: {
+        color: 'black',
+        fontWeight:'600'
     },
 })

@@ -1,18 +1,16 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, BackHandler, ToastAndroid, Vibration, Image } from 'react-native'
-import React, { useCallback, useEffect, useState, useRef } from 'react'
-import Video from 'react-native-video'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { DeleteNotesAsync, GetNotesAsyncThunk } from '../../Redux/Reducers/NotesReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import EditComp from './EditComp'
 import { useNavigation } from '@react-navigation/native'
 import { UpdateArchiveAsync } from '../../Redux/Reducers/ArchiveReducer'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
-
+import Video from 'react-native-video'
+export const AnotherNotesListComp = ({ title, note, onLongPress, onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
     const videoRef = useRef(null);
-    
     return (
-        <TouchableOpacity  style={styles.root} onPress={onPress} onLongPress={onLongPress} >
+        <TouchableOpacity style={styles.root} onPress={onPress} onLongPress={onLongPress} >
             <View style={styles.mainContainer}>
                 {imageExist ?
                     <Image source={{ uri: imageSource }} style={styles.image} resizeMode='center' />
@@ -39,24 +37,21 @@ export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, 
                         null
                 }
 
-                <Text style={{ color: 'white',marginTop:'10%' }}  >  {title && title.length > 30 ? title.slice(0, 30) + '...' : title} </Text>
-                <Text style={{ color: 'white' }} numberOfLines={2} ellipsizeMode='tail' > {note && note.length > 50 ? note.slice(0, 50) + '...' : note} </Text>
+                <Text style={{ color: 'white', marginTop: '5%' }}>  {title && title.length > 50 ? title.slice(0, 50) + '...' : title} </Text>
+                <Text style={{ color: 'white' }} numberOfLines={3} ellipsizeMode='tail' > {note && note.length > 180 ? note.slice(0, 180) + '...' : note} </Text>
             </View>
         </TouchableOpacity>
     )
 }
 
-const NotesListScreen = () => {
+const AnotherNoteListScreen = () => {
     const [modalopen, setModalOpen] = useState(false)
     const [notesID, setNotesID] = useState('')
-
-
     const navigation = useNavigation();
     const dispatch = useDispatch()
     const dispatchFunction = useCallback(() => {
         dispatch(GetNotesAsyncThunk())
     }, [dispatch])
-
 
     useEffect(() => {
         dispatchFunction()
@@ -121,10 +116,10 @@ const NotesListScreen = () => {
                 data={NoteData}
                 renderItem={({ item }) => {
                     return (
-                        <NotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} onLongPress={() => { modalhandle(item._id) }} />
+                        <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} onLongPress={() => { modalhandle(item._id) }} />
                     )
                 }}
-                numColumns={2}
+            // numColumns={2}
             />
             {modalopen
                 ?
@@ -136,20 +131,20 @@ const NotesListScreen = () => {
     )
 }
 
-export default NotesListScreen
+export default AnotherNoteListScreen
 
 const styles = StyleSheet.create({
     root: {
-        width: '48.5%',
+        width: '100%',
         backgroundColor: '#171717',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
         borderColor: '#323232',
         borderWidth: 2,
-        height: 380,
+        height: 250,
         marginTop: '3%',
-        marginLeft: '1%'
+        // marginLeft: '1%'
     },
     mainContainer: {
         width: '90%',
@@ -158,13 +153,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     image: {
-        width: '80%',
-        height: '60%',
+        width: '50%',
+        height: '50%',
         borderRadius: 15
     },
     videoContainer: {
-        width: '100%',
-        height: 100,
+        width: '80%',
+        height: 120,
     },
     videoPlayer: {
         width: '100%',
@@ -176,8 +171,8 @@ const styles = StyleSheet.create({
     playpauseIcon: {
         position: 'absolute',
         right: 0,
-        top: '15%',
-        left: '35%',
+        top: '25%',
+        left: '40%',
         bottom: 0,
     },
 })
