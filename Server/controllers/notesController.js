@@ -26,7 +26,7 @@ exports.deleteNotes = async (req, res) => {
         const deleteNotes = await Notes.findByIdAndDelete(id)
         res.send(deleteNotes);
         console.log(deleteNotes)
-
+        return;
     } catch (error) {
         res.send(error);
         console.log(error)
@@ -52,6 +52,7 @@ exports.updateNotes = async (req, res) => {
 
         res.send(updateNotes);
         console.log(updateNotes);
+        return;
     } catch (error) {
         console.log(error)
     }
