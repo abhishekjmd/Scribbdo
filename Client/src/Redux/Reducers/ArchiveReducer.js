@@ -13,7 +13,7 @@ export const GetArchiveAsyncThunk = createAsyncThunk(
     'GetArchive',
     async () => {
         try {
-            const res = await fetch('http://192.168.0.106:4000/archive/getArchive');
+            const res = await fetch('https://scribbdo.netlify.app/archive/getArchive');
             const result = await res.json();
             console.log('GetArchive', result[0].Archive);
             return result[0].Archive;
@@ -28,7 +28,7 @@ export const GetArchiveAsyncThunk = createAsyncThunk(
 //     'CreateArchive',
 //     async ({ titleValue, notesValue }) => {
 //         try {
-//             const createNote = await fetch('http://192.168.0.106:4000/notes/addNotes', {
+//             const createNote = await fetch('https://scribbdo.netlify.app/notes/addNotes', {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export const UpdateArchiveAsync = createAsyncThunk(
     async (notesID) => {
         const id = mongoose.Types.ObjectId(notesID);
         try {
-            const UpdateArchive = await fetch(`http://192.168.0.106:4000/archive/addToArchive/63f10ab825bad8c0ec0607c0`, {
+            const UpdateArchive = await fetch(`https://scribbdo.netlify.app/archive/addToArchive/63f10ab825bad8c0ec0607c0`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const DeleteNotesAsync = createAsyncThunk(
     async (notesID) => {
         const id = mongoose.Types.ObjectId(notesID);
         try {
-            const deleteNote = await fetch(`http://192.168.0.106:4000/notes/deleteNotes/${id}`, {
+            const deleteNote = await fetch(`https://scribbdo.netlify.app/notes/deleteNotes/${id}`, {
                 method: 'DELETE'
             })
             const result = await deleteNote.json();

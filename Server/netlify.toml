@@ -1,8 +1,9 @@
 [build]
   functions = "functions"
   command = "npm run build"
+  timeout = 30
   
   [[redirects]]
-  to = "Server/.netlify/functions/api/:splat"
+  to = "/.netlify/functions/api/:splat"
   from = "/*"
   status = 200

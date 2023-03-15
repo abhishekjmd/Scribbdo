@@ -1,4 +1,4 @@
-import { StyleSheet, View, BackHandler, ToastAndroid } from 'react-native'
+import { StyleSheet, View, BackHandler, ToastAndroid, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
@@ -13,7 +13,9 @@ import { androidCameraPermission } from '../components/HomescreenComponents.js/P
 import NotesListScreen from '../components/HomescreenComponents.js/NotesListScreen'
 import FloatingPhotoVideoComp from '../components/HomescreenComponents.js/FloatingPhotoVideoComp'
 import AnotherNoteListScreen from '../components/HomescreenComponents.js/AnotherNoteListScreen'
-// import FloatingPhotoVideoComp from '../components/HomescreenComponents.js/FloatingPhotoVideoComp'
+
+
+
 
 const HomeScreen = () => {
     const dispatch = useDispatch()
@@ -22,6 +24,8 @@ const HomeScreen = () => {
     const [videoModalOpen, setVideoModalOpen] = useState(false);
     const [backButtonPressed, setBackButtonPressed] = useState(0);
     const [topList, setTopList] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const photoHandle = () => {
         setModalOpen(!modalopen);
     }
@@ -33,16 +37,17 @@ const HomeScreen = () => {
     const onCameraPhoto = async () => {
         const permissionStatus = await androidCameraPermission()
         if (permissionStatus || Platform.OS == 'android') {
-            ImageCropPicker.openCamera({
+            const Image = await ImageCropPicker.openCamera({
                 width: 300,
                 height: 400,
                 cropping: true,
             }).then(image => {
                 console.log(image);
             });
-            navigation.navigate('createNote', { Image: Image.path })
-            await GetNotesAsyncThunk();
-            setModalOpen(false);
+            const imageUrl = await Image.path;
+            uploadImageToCloudinary(imageUrl)
+            // navigation.navigate('createNote', { Image: Image.path })
+            // await GetNotesAsyncThunk();
         }
     }
 
@@ -57,8 +62,11 @@ const HomeScreen = () => {
                 })
                 console.log(Image.path)
                 navigation.navigate('createNote', { Image: Image.path })
-                await GetNotesAsyncThunk();
-                setModalOpen(false);
+                const imageUrl = await Image.path;
+                uploadImageToCloudinary(imageUrl)
+
+                // await GetNotesAsyncThunk();
+                // setModalOpen(false);
             }
         } catch (error) {
             console.log(error)
@@ -76,8 +84,10 @@ const HomeScreen = () => {
                     videoQuality: 'high',
                 })
                 console.log(video)
-                navigation.navigate('createNote', { video: video.path })
-                setVideoModalOpen(false)
+                const videoUrl = await video.path
+                uploadVideoToCloudinary(videoUrl)
+                // navigation.navigate('createNote', { video: video.path })
+                // setVideoModalOpen(false)
             }
         } catch (error) {
             console.log(error);
@@ -93,13 +103,63 @@ const HomeScreen = () => {
                     includeBase64: true,
                 });
                 console.log(video);
-                navigation.navigate('createNote', { video: video.path })
-                setVideoModalOpen(false)
+                // navigation.navigate('createNote', { Video: video.path })
+                // setVideoModalOpen(false)
             }
         } catch (error) {
             console.log(error)
         }
     }
+
+
+    const uploadImageToCloudinary = async (uri) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', { uri, type: 'image/jpeg', name: 'test.jpg' });
+            formData.append('upload_preset', 'moxp9trd');
+            setLoading(true);
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dwhra8mlv/image/upload`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData,
+            })
+            const result = await res.json()
+            setLoading(false);
+            console.log(result.secure_url);
+            navigation.navigate('createNote', { Image: result.secure_url })
+            setModalOpen(false);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const uploadVideoToCloudinary = async (uri) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', { uri, type: 'video/mp4', name: 'test.mp4' });
+            formData.append('upload_preset', 'moxp9trd');
+            setLoading(true);
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dwhra8mlv/video/upload`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData,
+            });
+            const result = await res.json();
+            console.log(result);
+            setLoading(false);
+            navigation.navigate('createNote', { Video: result.secure_url });
+            setVideoModalOpen(false)
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
 
     const handleBackButton = () => {
         if (backButtonPressed === 1) {
@@ -129,7 +189,16 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.root}>
-            <SearchBarComp placeholder='Seach your notes' onMenuPress={() => { navigation.openDrawer() }} iconName={topList ? 'appstore-o' : 'layout' } listhandler={listhandler} />
+            {
+                loading
+                    ?
+                    <View style={styles.ActivityIndicatorContainer}>
+                        <ActivityIndicator size='large' color="#00acee" />
+                    </View>
+                    :
+                    null
+            }
+            <SearchBarComp placeholder='Seach your notes' onMenuPress={() => { navigation.openDrawer() }} iconName={topList ? 'appstore-o' : 'layout'} listhandler={listhandler} />
             {
                 topList
                     ?
@@ -165,4 +234,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#171717'
     },
+    ActivityIndicatorContainer: {
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })

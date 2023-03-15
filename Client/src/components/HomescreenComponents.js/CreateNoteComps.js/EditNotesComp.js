@@ -1,7 +1,7 @@
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, BackHandler, ScrollView, Image } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { UpdateNotesAsync } from '../../../Redux/Reducers/NotesReducer'
+import { GetNotesAsyncThunk, UpdateNotesAsync } from '../../../Redux/Reducers/NotesReducer'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Video from 'react-native-video'
 import Slider from '@react-native-community/slider'
@@ -47,9 +47,9 @@ const EditNotesComp = ({ notesId }) => {
 
     const handleSubmit = async () => {
         try {
-            console.warn(notesID)
             dispatch(UpdateNotesAsync({ notesID, titleValue, notesValue, image, video }))
-            // navigation.navigate('Home')
+            dispatch(GetNotesAsyncThunk())
+            navigation.navigate('Home');
         } catch (error) {
             console.log(error)
         }

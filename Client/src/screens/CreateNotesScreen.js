@@ -1,4 +1,4 @@
-import { BackHandler, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { BackHandler, StyleSheet, Text, ToastAndroid, View, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState, useCallback } from 'react'
 import TopCreateNoteComp from '../components/HomescreenComponents.js/CreateNoteComps.js/TopCreateNoteComp'
 import MiddleCreateNotesComp from '../components/HomescreenComponents.js/CreateNoteComps.js/MiddleCreateNotesComp'
@@ -8,12 +8,13 @@ import { AddPhotoVideoComp } from '../components/ArchiveScreenComp/ArchiveListSc
 import { androidCameraPermission } from '../components/HomescreenComponents.js/Permission'
 import ImageCropPicker from 'react-native-image-crop-picker'
 
+
 const CreateNotesScreen = () => {
     const navigation = useNavigation();
-    
     const [backButtonPressed, setBackButtonPressed] = useState(0);
     const [addModalOpen, setAddModalOpen] = useState(false)
-    
+    const [loading, setLoading] = useState(false);
+
     const addHandler = () => {
         setAddModalOpen(!addModalOpen)
     }
@@ -28,13 +29,14 @@ const CreateNotesScreen = () => {
                     cropping: true
                 })
                 console.log(Image)
-                navigation.navigate('createNote', { Image: Image.path })
-                setAddModalOpen(false)
+                const imageUrl = await Image.path
+                uploadImageToCloudinary(imageUrl)
             }
         } catch (error) {
             console.log(error)
         }
     }
+
 
     const onPhotoGallery = async () => {
         try {
@@ -46,8 +48,8 @@ const CreateNotesScreen = () => {
                     cropping: true
                 })
                 console.log(Image)
-                navigation.navigate('createNote', { Image: Image.path })
-                setAddModalOpen(false)
+                const imageUrl = await Image.path
+                uploadImageToCloudinary(imageUrl)
             }
         } catch (error) {
             console.log(error)
@@ -64,8 +66,8 @@ const CreateNotesScreen = () => {
                     videoQuality: 'high',
                 })
                 console.log(video)
-                navigation.navigate('createNote', { video: video.path })
-                setAddModalOpen(false)
+                const videoUrl = await video.path
+                uploadVideoToCloudinary(videoUrl)
             }
         } catch (error) {
             console.log(error);
@@ -83,15 +85,61 @@ const CreateNotesScreen = () => {
                     includeBase64: true,
                 });
                 console.log(video);
-                navigation.navigate('createNote', { video: video.path })
-                setAddModalOpen(false)
-                // setVideoModalOpen(false)
+                const videoUrl = await video.path
+                uploadVideoToCloudinary(videoUrl)
             }
         } catch (error) {
             console.log(error)
         }
 
     }
+
+    const uploadImageToCloudinary = async (uri) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', { uri, type: 'image/jpeg', name: 'test.jpg' });
+            formData.append('upload_preset', 'moxp9trd');
+            setLoading(true);
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dwhra8mlv/image/upload`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData,
+            })
+            const result = await res.json()
+            setLoading(false);
+            console.log(result.secure_url);
+            navigation.navigate('createNote', { Image: result.secure_url })
+            setAddModalOpen(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const uploadVideoToCloudinary = async (uri) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', { uri, type: 'video/mp4', name: 'test.mp4' });
+            formData.append('upload_preset', 'moxp9trd');
+            setLoading(true);
+            const res = await fetch(`https://api.cloudinary.com/v1_1/dwhra8mlv/video/upload`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData,
+            });
+            const result = await res.json();
+            console.log(result);
+            setLoading(false);
+            navigation.navigate('createNote', { Video: result.secure_url });
+            setAddModalOpen(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
@@ -115,6 +163,15 @@ const CreateNotesScreen = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#171717', }}>
+            {
+                loading
+                    ?
+                    <View style={styles.ActivityIndicatorContainer}>
+                        <ActivityIndicator size='large' color="#00acee" />
+                    </View>
+                    :
+                    null
+            }
             <TopCreateNoteComp onMenuPress={() => { navigation.navigate('Home') }} />
             <MiddleCreateNotesComp />
 
@@ -132,4 +189,11 @@ const CreateNotesScreen = () => {
 
 export default CreateNotesScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    ActivityIndicatorContainer: {
+        height:'100%',
+        width:'100%',
+        justifyContent:'center',
+        alignItems:'center'
+    }
+})

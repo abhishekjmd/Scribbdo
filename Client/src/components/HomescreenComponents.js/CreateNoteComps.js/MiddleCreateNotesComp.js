@@ -19,7 +19,7 @@ const MiddleCreateNotesComp = ({ notesID }) => {
   const route = useRoute()
   const videoRef = useRef(null);
   const image = route.params?.Image
-  const video = route.params?.video
+  const video = route.params?.Video
   const onSliderValueChange = (value) => {
     setCurrentTime(value);
   };

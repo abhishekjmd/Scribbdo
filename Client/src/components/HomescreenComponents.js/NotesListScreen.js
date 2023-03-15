@@ -10,9 +10,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
 
     const videoRef = useRef(null);
-    
+    const titleLength = videoExist ? 40 : (imageExist ? 20 : 60);
+    const noteTextLength = videoExist ? 110 : (imageExist ? 75 : 160);
+    const truncatedTitle = title.length > titleLength ? title.substr(0, titleLength) + "..." : title;
+    const truncatedNoteText = note.length > noteTextLength ? note.substr(0, noteTextLength) + "..." : note;
+
     return (
-        <TouchableOpacity  style={styles.root} onPress={onPress} onLongPress={onLongPress} >
+        <TouchableOpacity style={styles.root} onPress={onPress} onLongPress={onLongPress} >
             <View style={styles.mainContainer}>
                 {imageExist ?
                     <Image source={{ uri: imageSource }} style={styles.image} resizeMode='center' />
@@ -39,8 +43,8 @@ export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, 
                         null
                 }
 
-                <Text style={{ color: 'white',marginTop:'10%' }}  >  {title && title.length > 30 ? title.slice(0, 30) + '...' : title} </Text>
-                <Text style={{ color: 'white' }} numberOfLines={2} ellipsizeMode='tail' > {note && note.length > 50 ? note.slice(0, 50) + '...' : note} </Text>
+                <Text style={styles.titleText}> {truncatedTitle} </Text>
+                <Text style={styles.noteText}> {truncatedNoteText} </Text>
             </View>
         </TouchableOpacity>
     )
@@ -49,7 +53,6 @@ export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, 
 const NotesListScreen = () => {
     const [modalopen, setModalOpen] = useState(false)
     const [notesID, setNotesID] = useState('')
-
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderColor: '#323232',
         borderWidth: 2,
-        height: 380,
+        height: 320,
         marginTop: '3%',
         marginLeft: '1%'
     },
@@ -160,18 +163,22 @@ const styles = StyleSheet.create({
     image: {
         width: '80%',
         height: '60%',
-        borderRadius: 15
+        borderRadius: 15,
+        marginBottom:'5%'
     },
     videoContainer: {
         width: '100%',
-        height: 100,
+        height: 150,
+        marginBottom: '5%'
+
     },
     videoPlayer: {
         width: '100%',
         height: '100%',
         borderRadius: 15,
         borderColor: '#36454F',
-        borderWidth: 1
+        borderWidth: 1,
+
     },
     playpauseIcon: {
         position: 'absolute',
@@ -179,5 +186,13 @@ const styles = StyleSheet.create({
         top: '15%',
         left: '35%',
         bottom: 0,
+    },
+    titleText: {
+        color: 'white',
+        fontWeight: 'bold',
+        marginBottom: '5%'
+    },
+    noteText: {
+        color: 'white',
     },
 })

@@ -9,6 +9,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Video from 'react-native-video'
 export const AnotherNotesListComp = ({ title, note, onLongPress, onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
     const videoRef = useRef(null);
+    const titleLength = videoExist ? 48 : (imageExist ? 45 : 96);
+    const noteTextLength = videoExist ? 190 : (imageExist ? 130 : 660);
+    const truncatedTitle = title.length > titleLength ? title.substr(0, titleLength) + "..." : title;
+    const truncatedNoteText = note.length > noteTextLength ? note.substr(0, noteTextLength) + "..." : note;
+
     return (
         <TouchableOpacity style={styles.root} onPress={onPress} onLongPress={onLongPress} >
             <View style={styles.mainContainer}>
@@ -36,9 +41,8 @@ export const AnotherNotesListComp = ({ title, note, onLongPress, onPress, imageS
                         :
                         null
                 }
-
-                <Text style={{ color: 'white', marginTop: '5%' }}>  {title && title.length > 50 ? title.slice(0, 50) + '...' : title} </Text>
-                <Text style={{ color: 'white' }} numberOfLines={3} ellipsizeMode='tail' > {note && note.length > 180 ? note.slice(0, 180) + '...' : note} </Text>
+                <Text style={styles.titleText}> {truncatedTitle} </Text>
+                <Text style={styles.noteText}> {truncatedNoteText} </Text>
             </View>
         </TouchableOpacity>
     )
@@ -114,12 +118,12 @@ const AnotherNoteListScreen = () => {
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
             <FlatList
                 data={NoteData}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => {
                     return (
                         <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} onLongPress={() => { modalhandle(item._id) }} />
                     )
                 }}
-            // numColumns={2}
             />
             {modalopen
                 ?
@@ -142,9 +146,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderColor: '#323232',
         borderWidth: 2,
-        height: 250,
+        height: 400,
         marginTop: '3%',
-        // marginLeft: '1%'
     },
     mainContainer: {
         width: '90%',
@@ -153,13 +156,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     image: {
-        width: '50%',
-        height: '50%',
-        borderRadius: 15
+        width: '100%',
+        height: '70%',
+        borderRadius: 15,
+        marginBottom: '2%'
     },
     videoContainer: {
-        width: '80%',
-        height: 120,
+        width: '100%',
+        height: '70%',
     },
     videoPlayer: {
         width: '100%',
@@ -171,8 +175,16 @@ const styles = StyleSheet.create({
     playpauseIcon: {
         position: 'absolute',
         right: 0,
-        top: '25%',
-        left: '40%',
+        top: '35%',
+        left: '45%',
         bottom: 0,
+    },
+    titleText: {
+        color: 'white',
+        fontWeight: 'bold',
+        marginBottom: '2%'
+    },
+    noteText: {
+        color: 'white',
     },
 })
