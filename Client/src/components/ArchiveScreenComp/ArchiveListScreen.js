@@ -12,9 +12,11 @@ const ArchiveListScreen = ({ ArchiveData }) => {
     const [notesID, setNotesID] = useState('')
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    
     const dispatchFunction = useCallback(() => {
         dispatch(GetArchiveAsyncThunk());
     }, [dispatch])
+    
     useEffect(() => {
         dispatchFunction()
     }, [dispatchFunction])
@@ -45,18 +47,7 @@ const ArchiveListScreen = ({ ArchiveData }) => {
         }
     }
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            handleBackButton
-        );
 
-        return () => backHandler.remove();
-    }, []);
-
-    const handleBackButton = () => {
-        navigation.navigate('Home')
-    };
 
     return (
         <View>

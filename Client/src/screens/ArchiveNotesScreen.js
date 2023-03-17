@@ -1,4 +1,4 @@
-import { StyleSheet, View, ToastAndroid, BackHandler } from 'react-native'
+import { StyleSheet, View, ToastAndroid, BackHandler, ActivityIndicator } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import ArchiveTopComp from '../components/ArchiveScreenComp/ArchiveTopComp'
 import { useNavigation } from '@react-navigation/native'
@@ -13,61 +13,60 @@ const ArchiveNotesScreen = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [topList, setTopList] = useState(false);
   const [backButtonPressed, setBackButtonPressed] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   const listHandler = () => {
     setTopList(!topList);
   }
 
-  const dispatchFunction = useCallback(() => {
-    dispatch(GetArchiveAsyncThunk());
-  }, [dispatch])
-  useEffect(() => {
-    dispatchFunction()
-  }, [dispatchFunction])
 
-
-  const ArchiveData = useSelector((state) => state.Archive.GetArchive)
-  const [filteredData, setFilteredData] = useState(ArchiveData)
-
-  const handleSearch = (text) => {
-    setSearchTerm(text)
-    const searchTermLowercase = text.toLowerCase();
-    // const archive = ArchiveData;
-    const newData = ArchiveData.filter(item => {
-      return item.Note.toLowerCase().includes(searchTermLowercase);
-    });
-    setFilteredData(newData);
+  
+  const dispatchFunction = async () => {
+    try {
+      setLoading(true);
+      await dispatch(GetArchiveAsyncThunk());
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
+    dispatchFunction();
+  }, [])
+
+
+  const ArchiveData = useSelector((state) => state.Archive.GetArchive)
+ 
+  useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      handleBackButton
+      () => {
+        navigation.navigate('Home');
+        return true; 
+      },
     );
-
     return () => backHandler.remove();
-  }, [backButtonPressed]);
-
-  const handleBackButton = () => {
-    if (backButtonPressed === 1) {
-      navigation.navigate('Home')
-    } else {
-      setBackButtonPressed(backButtonPressed + 1);
-      ToastAndroid.show('Press back again to exit', ToastAndroid.SHORT);
-      setTimeout(() => setBackButtonPressed(0), 4000);
-      return true;
-    }
-  };
-
+  }, [navigation]);
 
   return (
     <View style={styles.root}>
-      <ArchiveTopComp value={searchTerm} onChangeText={handleSearch} onMenuPress={() => { navigation.openDrawer() }} iconName={topList ? 'appstore-o' : 'layout'} listHandler={listHandler} />
+      <ArchiveTopComp  onMenuPress={() => { navigation.openDrawer() }} iconName={topList ? 'appstore-o' : 'layout'} listHandler={listHandler} />
+      {
+        loading
+          ?
+          <View style={styles.ActivityIndicatorContainer}>
+            <ActivityIndicator size='large' color="#00acee" />
+          </View>
+          :
+          null
+      }
       {
         topList
           ?
-          <AnotherArchiveListScreen ArchiveData={filteredData} />
+          <AnotherArchiveListScreen ArchiveData={ArchiveData} />
           :
-          <ArchiveListScreen ArchiveData={filteredData} />
+          <ArchiveListScreen ArchiveData={ArchiveData} />
       }
     </View>
   )
@@ -80,4 +79,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#171717'
   },
+  ActivityIndicatorContainer: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
 })

@@ -6,7 +6,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 export const UniversalModalComp = ({text}) => {
     return (
-
         <View style={styles.ArchiveHanlerCompRoot}>
             <View style={styles.ArchiveHanlerCompMainComponent}>
                 <Text style={styles.ArchiveHanlerCompText}> {text} </Text>
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position:'absolute',
-        top:'60%'
+        // top:'60%'
     },
     ArchiveHanlerCompMainComponent: {
         width: '95%',

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View,TextInput } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+
 const ArchiveTopComp = ({ onMenuPress, iconName, listHandler, value, onChangeText }) => {
     return (
         <View style={styles.root}>
@@ -11,8 +11,7 @@ const ArchiveTopComp = ({ onMenuPress, iconName, listHandler, value, onChangeTex
                     <Ionicons name='ios-menu-sharp' size={25} style={styles.Icon} />
                 </TouchableOpacity>
                 <View style={styles.textContainer}>
-                    <TextInput style={styles.text} value={value} onChangeText={onChangeText} placeholder='Archive' placeholderTextColor='white' />
-                    <Ionicons name='ios-search' size={25} style={styles.Icon} />
+                   <Text style={styles.text}>Archive</Text>
                 </View>
                 <TouchableOpacity style={styles.listContainer} onPress={listHandler}>
                     <AntDesign name={iconName} size={25} style={styles.Icon} />

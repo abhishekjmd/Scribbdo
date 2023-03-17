@@ -19,7 +19,7 @@ const AnotherArchiveListScreen = ({ ArchiveData }) => {
         dispatchFunction()
     }, [dispatchFunction])
 
-    
+
     const modalhandle = (id) => {
         setModalOpen(!modalopen);
         setNotesID(id);
@@ -44,30 +44,17 @@ const AnotherArchiveListScreen = ({ ArchiveData }) => {
         }
     }
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            handleBackButton
-        );
-
-        return () => backHandler.remove();
-    }, []);
-
-    const handleBackButton = () => {
-        navigation.navigate('Home')
-    };
 
     return (
-        <View>
+        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
             <FlatList
                 data={ArchiveData && ArchiveData ? ArchiveData : ArchiveData}
                 renderItem={({ item }) => {
                     return (
-
-                        <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} onLongPress={() => { modalhandle(item._id) }} />
+                        <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} type='Primary' onLongPress={() => { modalhandle(item._id) }} />
                     )
                 }}
-                numColumns={2}
+                
             />
             {
                 modalopen
@@ -76,10 +63,20 @@ const AnotherArchiveListScreen = ({ ArchiveData }) => {
                     :
                     null
             }
+
         </View>
     )
 }
 
 export default AnotherArchiveListScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    root: {
+        width: '90%',
+    },
+    mainContainer: {
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+})

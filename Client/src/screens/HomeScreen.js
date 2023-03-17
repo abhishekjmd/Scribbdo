@@ -14,9 +14,6 @@ import NotesListScreen from '../components/HomescreenComponents.js/NotesListScre
 import FloatingPhotoVideoComp from '../components/HomescreenComponents.js/FloatingPhotoVideoComp'
 import AnotherNoteListScreen from '../components/HomescreenComponents.js/AnotherNoteListScreen'
 
-
-
-
 const HomeScreen = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation()

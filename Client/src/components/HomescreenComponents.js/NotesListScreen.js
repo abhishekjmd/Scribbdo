@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, BackHandler, ToastAndroid, Vibration, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, BackHandler, ToastAndroid, Vibration, Image, RefreshControl } from 'react-native'
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import Video from 'react-native-video'
 import { DeleteNotesAsync, GetNotesAsyncThunk } from '../../Redux/Reducers/NotesReducer'
@@ -7,11 +7,14 @@ import EditComp from './EditComp'
 import { useNavigation } from '@react-navigation/native'
 import { UpdateArchiveAsync } from '../../Redux/Reducers/ArchiveReducer'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { UniversalModalComp } from './CreateNoteComps.js/TopCreateNoteComp'
+
+
 export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
 
     const videoRef = useRef(null);
     const titleLength = videoExist ? 40 : (imageExist ? 20 : 60);
-    const noteTextLength = videoExist ? 110 : (imageExist ? 75 : 160);
+    const noteTextLength = videoExist ? 110 : (imageExist ? 55 : 160);
     const truncatedTitle = title.length > titleLength ? title.substr(0, titleLength) + "..." : title;
     const truncatedNoteText = note.length > noteTextLength ? note.substr(0, noteTextLength) + "..." : note;
 
@@ -53,17 +56,26 @@ export const NotesListComp = ({ title, note, onLongPress, onPress, imageSource, 
 const NotesListScreen = () => {
     const [modalopen, setModalOpen] = useState(false)
     const [notesID, setNotesID] = useState('')
+    const [archiveDoneModal, setArchiveDoneModal] = useState(false)
+    const [deleteDoneModal, setDeleteDoneModal] = useState(false)
+    const [isRefreshing, setIsRefreshing] = useState(false)
 
     const navigation = useNavigation();
     const dispatch = useDispatch()
-    const dispatchFunction = useCallback(() => {
-        dispatch(GetNotesAsyncThunk())
-    }, [dispatch])
-
+    const dispatchFunction = async () => {
+        try {
+            setIsRefreshing(true)
+            await dispatch(GetNotesAsyncThunk())
+            setIsRefreshing(false)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         dispatchFunction()
-    }, [dispatch])
+    }, [])
 
     const NoteData = useSelector((state) => state.Notes.GetNotes)
 
@@ -112,7 +124,12 @@ const NotesListScreen = () => {
         try {
             dispatch(UpdateArchiveAsync(notesID))
             setModalOpen(false);
+            setArchiveDoneModal(true)
             dispatch(GetNotesAsyncThunk())
+            setTimeout(() => {
+                setArchiveDoneModal(false);
+                navigation.navigate('Home');
+            }, 1000);
         } catch (error) {
             console.log(error);
         }
@@ -128,13 +145,23 @@ const NotesListScreen = () => {
                     )
                 }}
                 numColumns={2}
+                refreshControl={
+                    <RefreshControl refreshing={isRefreshing} onRefresh={dispatchFunction} />
+                }
             />
+            {
+                archiveDoneModal ?
+                    <UniversalModalComp text='Note Archived' />
+                    :
+                    null
+            }
             {modalopen
                 ?
                 <EditComp oneText='Archive' twoText='Delete' deleteHandle={deleteHandle} archiveHandle={archiveHandle} />
                 :
                 null
             }
+
         </View>
     )
 }
@@ -164,7 +191,7 @@ const styles = StyleSheet.create({
         width: '80%',
         height: '60%',
         borderRadius: 15,
-        marginBottom:'5%'
+        marginBottom: '5%'
     },
     videoContainer: {
         width: '100%',

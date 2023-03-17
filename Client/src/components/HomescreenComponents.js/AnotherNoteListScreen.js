@@ -7,15 +7,14 @@ import { useNavigation } from '@react-navigation/native'
 import { UpdateArchiveAsync } from '../../Redux/Reducers/ArchiveReducer'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Video from 'react-native-video'
-export const AnotherNotesListComp = ({ title, note, onLongPress, onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
+export const AnotherNotesListComp = ({ title, note, onLongPress, type,onPress, imageSource, imageExist, videoSource, videoExist, onVideoLoad, onVideoProgress, }) => {
     const videoRef = useRef(null);
     const titleLength = videoExist ? 48 : (imageExist ? 45 : 96);
     const noteTextLength = videoExist ? 190 : (imageExist ? 130 : 660);
     const truncatedTitle = title.length > titleLength ? title.substr(0, titleLength) + "..." : title;
     const truncatedNoteText = note.length > noteTextLength ? note.substr(0, noteTextLength) + "..." : note;
-
     return (
-        <TouchableOpacity style={styles.root} onPress={onPress} onLongPress={onLongPress} >
+        <TouchableOpacity style={[styles.root,styles[`root_${type}`]]} onPress={onPress} onLongPress={onLongPress} >
             <View style={styles.mainContainer}>
                 {imageExist ?
                     <Image source={{ uri: imageSource }} style={styles.image} resizeMode='center' />
@@ -118,7 +117,8 @@ const AnotherNoteListScreen = () => {
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
             <FlatList
                 data={NoteData}
-                showsVerticalScrollIndicator={false}
+                // numColumns={1}
+                // showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => {
                     return (
                         <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} onLongPress={() => { modalhandle(item._id) }} />
@@ -154,6 +154,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft: '2%',
         alignItems: 'center'
+    },
+    mainContainer_Primary:{
+        width: '90%',
+        justifyContent: 'center',
+        marginLeft: '2%',
+        alignItems: 'center',
+        backgroundColor:'red'
     },
     image: {
         width: '100%',
