@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ReminderTopComp from '../components/ReminderScreenComponents/ReminderTopComp'
-import BottomTabsComp from '../components/HomescreenComponents.js/BottomTabsComp'
-import FloatingAddComp from '../components/HomescreenComponents.js/FloatingAddComp'
+import BottomTabsComp from '../components/HomescreenComponents/BottomTabsComp'
+import FloatingAddComp from '../components/HomescreenComponents/FloatingAddComp'
 import ReminderMainComp from '../components/ReminderScreenComponents/ReminderMainComp'
 
 import { useNavigation } from '@react-navigation/native'

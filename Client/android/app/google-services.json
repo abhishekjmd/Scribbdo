@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "988883850398",
+    "project_id": "scribbdoo",
+    "storage_bucket": "scribbdoo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988883850398:android:429a6e22d275c0afc6978f",
+        "android_client_info": {
+          "package_name": "com.devdrops_scribbdo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988883850398-r246hda1uamspbckfdmm518gu32dup6s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devdrops_scribbdo",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "988883850398-ocbu9sa1sdvuqf28kim3h11nhhsej77i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA36mmAiLDDy8SceNVnMp1icYGyYfUcvf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988883850398-410kfj5k8muh512076smfmpcnne13khu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

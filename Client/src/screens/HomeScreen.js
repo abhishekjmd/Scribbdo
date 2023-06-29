@@ -2,17 +2,17 @@ import { StyleSheet, View, BackHandler, ToastAndroid, ActivityIndicator } from '
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { GetNotesAsyncThunk } from '../Redux/Reducers/NotesReducer'
 import ImageCropPicker from 'react-native-image-crop-picker'
 
 // ------------------- IMPORTED FILES --------------
-import SearchBarComp from '../components/HomescreenComponents.js/SearchBarComp'
-import FloatingAddComp from '../components/HomescreenComponents.js/FloatingAddComp'
-import BottomTabsComp from '../components/HomescreenComponents.js/BottomTabsComp'
-import { androidCameraPermission } from '../components/HomescreenComponents.js/Permission'
-import NotesListScreen from '../components/HomescreenComponents.js/NotesListScreen'
-import FloatingPhotoVideoComp from '../components/HomescreenComponents.js/FloatingPhotoVideoComp'
-import AnotherNoteListScreen from '../components/HomescreenComponents.js/AnotherNoteListScreen'
+
+import { androidCameraPermission } from '../components/HomescreenComponents/Permission'
+import FloatingPhotoVideoComp from '../components/HomescreenComponents/MiddleHomeComponents/FloatingPhotoVideoComp'
+import AnotherNoteListScreen from '../components/HomescreenComponents/MiddleHomeComponents/AnotherNoteListScreen'
+import TopBarComp from '../components/HomescreenComponents/TopHomeComponents/TopBarComp'
+import FloatingAddComp from '../components/HomescreenComponents/MiddleHomeComponents/FloatingAddComp'
+import BottomTabsComp from '../components/HomescreenComponents/BottomHomeComponents/BottomTabsComp'
+import NotesListScreen from '../components/HomescreenComponents/MiddleHomeComponents/NotesListScreen'
 
 const HomeScreen = () => {
     const dispatch = useDispatch()
@@ -43,8 +43,6 @@ const HomeScreen = () => {
             });
             const imageUrl = await Image.path;
             uploadImageToCloudinary(imageUrl)
-            // navigation.navigate('createNote', { Image: Image.path })
-            // await GetNotesAsyncThunk();
         }
     }
 
@@ -62,8 +60,6 @@ const HomeScreen = () => {
                 const imageUrl = await Image.path;
                 uploadImageToCloudinary(imageUrl)
 
-                // await GetNotesAsyncThunk();
-                // setModalOpen(false);
             }
         } catch (error) {
             console.log(error)
@@ -83,8 +79,6 @@ const HomeScreen = () => {
                 console.log(video)
                 const videoUrl = await video.path
                 uploadVideoToCloudinary(videoUrl)
-                // navigation.navigate('createNote', { video: video.path })
-                // setVideoModalOpen(false)
             }
         } catch (error) {
             console.log(error);
@@ -100,8 +94,6 @@ const HomeScreen = () => {
                     includeBase64: true,
                 });
                 console.log(video);
-                // navigation.navigate('createNote', { Video: video.path })
-                // setVideoModalOpen(false)
             }
         } catch (error) {
             console.log(error)
@@ -195,7 +187,7 @@ const HomeScreen = () => {
                     :
                     null
             }
-            <SearchBarComp placeholder='Seach your notes' onMenuPress={() => { navigation.openDrawer() }} iconName={topList ? 'appstore-o' : 'layout'} listhandler={listhandler} />
+            <TopBarComp placeholder='Seach your notes' onMenuPress={() => { navigation.openDrawer() }} iconName={topList ? 'appstore-o' : 'layout'} listhandler={listhandler} />
             {
                 topList
                     ?

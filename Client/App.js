@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import HomeScreen from './src/screens/HomeScreen'
+import React,{useState} from 'react'
 import DrawerNavigation from './src/navigation/DrawerNavigation/DrawerNavigation';
+import auth from '@react-native-firebase/auth'
 const App = () => {
+
   return (
     <View style={styles.root}>
       <DrawerNavigation />

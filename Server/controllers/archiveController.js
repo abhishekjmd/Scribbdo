@@ -1,5 +1,6 @@
 const Archive = require("../models/archieve");
 
+
 exports.createArchive = async (req, res) => {
     try {
         const createArchive = await new Archive({
@@ -21,6 +22,7 @@ exports.addToArchive = async (req, res) => {
     try {
         const id = req.params.id;
         const addToArchive = await Archive.findOneAndUpdate({ id }, { $push: req.body }, { new: true }).populate('Archive');
+
         res.send(addToArchive);
         console.log(addToArchive);
         return;

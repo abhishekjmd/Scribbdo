@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, FlatList, BackHandler } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { NotesListComp } from '../HomescreenComponents.js/NotesListScreen'
+// import { NotesListComp } from '../HomescreenComponents/NotesListScreen'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { GetArchiveAsyncThunk } from '../../Redux/Reducers/ArchiveReducer'
 import { useNavigation } from '@react-navigation/native'
-import EditComp from '../HomescreenComponents.js/EditComp'
+
 import { DeleteNotesAsync, GetNotesAsyncThunk } from '../../Redux/Reducers/NotesReducer'
+import EditComp from '../HomescreenComponents/MiddleHomeComponents/EditComp'
+import { NotesListComp } from '../HomescreenComponents/MiddleHomeComponents/NotesListScreen'
 
 const ArchiveListScreen = ({ ArchiveData }) => {
     const [modalopen, setModalOpen] = useState(false)

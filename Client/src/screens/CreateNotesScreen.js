@@ -1,11 +1,11 @@
 import { BackHandler, StyleSheet, Text, ToastAndroid, View, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState, useCallback } from 'react'
-import TopCreateNoteComp from '../components/HomescreenComponents.js/CreateNoteComps.js/TopCreateNoteComp'
-import MiddleCreateNotesComp from '../components/HomescreenComponents.js/CreateNoteComps.js/MiddleCreateNotesComp'
-import BottomCreateComp from '../components/HomescreenComponents.js/CreateNoteComps.js/BottomCreateComp'
+import TopCreateNoteComp from '../components/HomescreenComponents/CreateNoteComps.js/TopCreateNoteComp'
+import MiddleCreateNotesComp from '../components/HomescreenComponents/CreateNoteComps.js/MiddleCreateNotesComp'
+import BottomCreateComp from '../components/HomescreenComponents/CreateNoteComps.js/BottomCreateComp'
 import { useNavigation } from '@react-navigation/native'
 import { AddPhotoVideoComp } from '../components/ArchiveScreenComp/ArchiveListScreenComps'
-import { androidCameraPermission } from '../components/HomescreenComponents.js/Permission'
+import { androidCameraPermission } from '../components/HomescreenComponents/Permission'
 import ImageCropPicker from 'react-native-image-crop-picker'
 
 

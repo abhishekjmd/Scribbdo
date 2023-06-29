@@ -18,7 +18,7 @@ export const GetNotesAsyncThunk = createAsyncThunk(
             console.log('GetNotes', result);
             return result;
         } catch (error) {
-            console.log(error)
+            console.log('error', error.message)
         }
     }
 )

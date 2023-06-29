@@ -3,9 +3,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetArchiveAsyncThunk } from '../../Redux/Reducers/ArchiveReducer'
 import { useNavigation } from '@react-navigation/native'
-import EditComp from '../HomescreenComponents.js/EditComp'
+import EditComp from '../HomescreenComponents/MiddleHomeComponents/EditComp'
 import { DeleteNotesAsync, GetNotesAsyncThunk } from '../../Redux/Reducers/NotesReducer'
-import { AnotherNotesListComp } from '../HomescreenComponents.js/AnotherNoteListScreen'
+import { AnotherNotesListComp } from '../HomescreenComponents/MiddleHomeComponents/AnotherNoteListScreen'
 
 const AnotherArchiveListScreen = ({ ArchiveData }) => {
     const [modalopen, setModalOpen] = useState(false)
@@ -46,12 +46,12 @@ const AnotherArchiveListScreen = ({ ArchiveData }) => {
 
 
     return (
-        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        <View>
             <FlatList
                 data={ArchiveData && ArchiveData ? ArchiveData : ArchiveData}
                 renderItem={({ item }) => {
                     return (
-                        <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }} type='Primary' onLongPress={() => { modalhandle(item._id) }} />
+                        <AnotherNotesListComp title={item.Title} note={item.Note} imageSource={item.Image ? item.Image : null} imageExist={item.Image} videoExist={item.Recording} videoSource={item.Recording ? item.Recording : null} onPress={() => { navigation.navigate('EditNotes', { Title: item.Title, Notes: item.Note, Id: item._id, video: item.Recording, Image: item.Image }) }}  onLongPress={() => { modalhandle(item._id) }} />
                     )
                 }}
                 
@@ -71,12 +71,12 @@ const AnotherArchiveListScreen = ({ ArchiveData }) => {
 export default AnotherArchiveListScreen
 
 const styles = StyleSheet.create({
-    root: {
-        width: '90%',
-    },
-    mainContainer: {
-        width: '90%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
+    // root: {
+    //     width: '90%',
+    // },
+    // mainContainer: {
+    //     width: '90%',
+    //     justifyContent: 'center',
+    //     alignItems: 'center'
+    // },
 })

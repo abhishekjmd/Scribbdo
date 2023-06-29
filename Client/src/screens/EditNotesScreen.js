@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, BackHandler, ToastAndroid, PermissionsAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import EditNotesComp from '../components/HomescreenComponents.js/CreateNoteComps.js/EditNotesComp'
-import TopCreateNoteComp, {  UniversalModalComp } from '../components/HomescreenComponents.js/CreateNoteComps.js/TopCreateNoteComp'
-import BottomCreateComp from '../components/HomescreenComponents.js/CreateNoteComps.js/BottomCreateComp'
+import EditNotesComp from '../components/HomescreenComponents/CreateNoteComps.js/EditNotesComp'
+import TopCreateNoteComp, {  UniversalModalComp } from '../components/HomescreenComponents/CreateNoteComps.js/TopCreateNoteComp'
+import BottomCreateComp from '../components/HomescreenComponents/CreateNoteComps.js/BottomCreateComp'
 import { useNavigation } from '@react-navigation/native'
 import { UpdateArchiveAsync } from '../Redux/Reducers/ArchiveReducer'
 import { useDispatch } from 'react-redux'
 import { AddPhotoVideoComp } from '../components/ArchiveScreenComp/ArchiveListScreenComps'
-import { androidCameraPermission } from '../components/HomescreenComponents.js/Permission'
+import { androidCameraPermission } from '../components/HomescreenComponents/Permission'
 import ImageCropPicker from 'react-native-image-crop-picker'
 
 
@@ -158,5 +158,3 @@ const EditNotesScreen = () => {
 }
 
 export default EditNotesScreen
-
-const styles = StyleSheet.create({})
